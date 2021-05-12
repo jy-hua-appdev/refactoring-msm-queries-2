@@ -22,13 +22,15 @@ class Character < ApplicationRecord
 
   belongs_to(:movie, { :class_name => "Movie", :foreign_key => "movie_id" })
 
-  def actor
-    my_actor_id = self.actor_id
+  # def actor
+  #   my_actor_id = self.actor_id
     
-    matching_actors = Actor.where({ :id => my_actor_id})
+  #   matching_actors = Actor.where({ :id => my_actor_id})
 
-    the_actor = matching_actors.at(0)
+  #   the_actor = matching_actors.at(0)
 
-    return the_actor
-  end
+  #   return the_actor
+  # end
+
+  belongs_to(:actor, { :class_name => "Actor", :foreign_key => "actor_id" })
 end

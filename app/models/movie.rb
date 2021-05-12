@@ -28,16 +28,29 @@ class Movie < ApplicationRecord
   # another option (shorter, can leave out foreign key because of the name of the method)
   # belongs_to(:director, { :class_name => "Director", :foreign_key => "director_id" })
   
-  def characters
-    my_id = self.id
+  # def characters
+  #   my_id = self.id
 
-    matching_characters = Character.where({ :movie_id => my_id })
+  #   matching_characters = Character.where({ :movie_id => my_id })
 
-    return matching_characters
-  end
+  #   return matching_characters
+  # end
 
-  def cast 
-  
-  end
+  has_many(:characters, { :class_name => "Character", :foreign_key => "movie_id" })
+
+  # many-to-many method
+  # def cast
+  #   join_records = self.characters
+    
+  #   other_record_ids = []
+
+  #   join_records.each do |a_record|
+  #     other_record_ids.push(a_record.actor_id)
+  #   end
+
+  #   Actor.where({ :id => other_record_ids }) # can provide an array as criteria to .where
+  # end
+
+  has_many(:cast, { :through => :characters, :source => :actor })
 
 end

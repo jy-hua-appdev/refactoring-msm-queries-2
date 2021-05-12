@@ -21,20 +21,25 @@ class Actor < ApplicationRecord
 
   has_many(:characters, { :class_name => "Character", :foreign_key => "actor_id" })
 
-  def filmography
-    array_of_movie_ids = Array.new
+  # def filmography
+  #   array_of_movie_ids = Array.new
 
-    my_characters = self.characters
+  #   my_characters = self.characters
 
-    my_characters.each do |a_character|
-      the_movie = a_character.movie
+  #   my_characters.each do |a_character|
+  #     the_movie = a_character.movie
 
-      array_of_movie_ids.push(the_movie.id)
-    end
+  #     array_of_movie_ids.push(the_movie.id)
+  #   end
 
-    matching_movies = Movie.where({ :id => array_of_movie_ids })
+  #   matching_movies = Movie.where({ :id => array_of_movie_ids })
 
-    return matching_movies
-  end
+  #   return matching_movies
+  # end
+
+  # many-to-many
+  has_many(:filmography, { :through => :characters, :source => :movie })
+
+  has_many(:directors, { :through => :filmography, :source => :movie })
 
 end
